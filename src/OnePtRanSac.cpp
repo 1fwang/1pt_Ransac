@@ -50,7 +50,7 @@ void polyview::demos::OnePtsolver(std::vector<cv::Mat> &Prev_Imgs,
         double val;
         val = ((p2[1] * p1[2] - p2[2] * p1[1]) / (p2[0] * p1[2] + p2[2] * p1[0]));
         theta = -2 * std::atan(val);
-        std::cout << "theta: " << theta << std::endl;
+//        std::cout << "theta: " << theta << std::endl;
 
         d_value[0] = p2[0] * p1[2] + p2[2] * p1[0];
         d_value[1] = p2[1] * p1[2] - p2[2] * p1[1];
@@ -81,6 +81,11 @@ void polyview::demos::OnePtsolver(std::vector<cv::Mat> &Prev_Imgs,
     double final_t;
     final_t = 2 * std::atan(V(0, 1) / V(1, 1));
     std::cout << "final_t theta: " << final_t << std::endl;
+    Relative_R(0,0) = std::cos(final_t);
+    Relative_R(0,1) = -std::sin(final_t);
+    Relative_R(1,0) = std::sin(final_t);
+    Relative_R(1,1) = std::cos(final_t);
+
 }
 
 void polyview::demos::FeatureExtraction(cv::Mat &Prev_Img,

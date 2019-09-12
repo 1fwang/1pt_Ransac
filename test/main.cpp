@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <Eigen/Eigen>
 #include <opencv2/opencv.hpp>
 #include <sys/time.h>
@@ -13,12 +14,12 @@ init_cams(std::vector<polyview::tools::OptionSet> & optionSets)
     polyview::tools::options::OptionType type;
 
     // extract the options for the camera
-    Eigen::MatrixXd imageSize(2, 1);        imageSize<< 1241, 376;
-    Eigen::MatrixXd principalPoint(2, 1);   principalPoint<< 609.5593,172.854;
-    Eigen::MatrixXd focalLength(2,1);       focalLength<< 721.5377,721.5377;
+    Eigen::MatrixXd imageSize(2, 1);        imageSize<< 1936, 1216;
+    Eigen::MatrixXd principalPoint(2, 1);   principalPoint<< 968.5593,608.854;
+    Eigen::MatrixXd focalLength(2,1);       focalLength<< 300.5377,300.5377;
     Eigen::MatrixXd camPosition(3, 1);      camPosition<< 0, 0, 0;
 //    Eigen::MatrixXd camOrientation(3, 3);   camOrientation<< 1, 0, 0, 0, 0, 1, 0, -1, 0;
-    Eigen::MatrixXd camOrientation(3, 3);   camOrientation<< 0, 0, 1,-1, 0, 0, 0, -1, 0;
+    Eigen::MatrixXd camOrientation(3, 3);   camOrientation<< 1, 0, 0,0, -1, 0, 0, 0, -1;
 
     polyview::tools::OptionSet optionSet1;
     type = polyview::tools::options::IMAGE_SIZE;        optionSet1.push_back(polyview::tools::Option(type, imageSize));
@@ -41,7 +42,7 @@ int main() {
 
     int camera_Num = 1;
     /*READ IMAGES*/
-    std::string GTPath("/home/ifwang/dataset/yifu/03/association.txt");
+    std::string GTPath("/home/ifwang/datasets/GOVO/association.txt");
     std::vector<std::vector<std::string>> Img_Path;
     std::ifstream GTInput(GTPath, std::ifstream::in);
 
@@ -54,7 +55,7 @@ int main() {
         std::stringstream ss(line, std::stringstream::in);
         for (int i = 0; i < camera_Num; ++i) {
             ss >> tmp[i];
-            tmp[i] = "/home/ifwang/dataset/yifu/03/image_0/" + tmp[i];
+            tmp[i] = "/home/ifwang/datasets/GOVO/" + tmp[i];
         }
         Img_Path.push_back(tmp);
         GTInput.getline(line, 512);
